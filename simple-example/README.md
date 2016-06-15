@@ -8,7 +8,7 @@ Because the rebel-router is designed for ultra-modern applications and is writte
 
 ##Project folder
 
-First of all create your project in an empty directory called "simple". Have a terminal window open at this directory ready for subsequent steps.
+First of all create your project in an empty directory called `simple`. Have a terminal window open at this directory ready for subsequent steps.
 
 <div align="center">
 <img src="http://i.imgur.com/WlrAL3p.png" alt="terminal window" />
