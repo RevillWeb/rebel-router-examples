@@ -5,10 +5,13 @@ import {HomePage} from './pages/home.js';
 import {AboutPage} from './pages/about.js';
 import {ContactPage} from './pages/contact.js';
 
-let MainRouter = new RebelRouter("main-router");
-MainRouter
-    .add("/about", AboutPage)
-    .add("/contact", ContactPage)
-    .setDefault(HomePage);
+const routes = {
+    "/about": AboutPage,
+    "/contact": ContactPage,
+    "default": HomePage
+};
+
+RebelRouter.create("main", routes);
+
 
 

@@ -8,7 +8,7 @@ Because the rebel-router is designed for ultra-modern applications and is writte
 
 ##Project folder
 
-First of all create your project in an empty directory called "simple-example". Have a terminal window open at this directory ready for subsequent steps.
+First of all create your project in an empty directory called "simple". Have a terminal window open at this directory ready for subsequent steps.
 
 <div align="center">
 <img src="http://i.imgur.com/WlrAL3p.png" alt="terminal window" />
@@ -132,18 +132,20 @@ import {HomePage} from './pages/home.js';
 import {AboutPage} from './pages/about.js';
 import {ContactPage} from './pages/contact.js';
 
-let MainRouter = new RebelRouter("main-router");
-MainRouter
-    .add("/about", AboutPage)
-    .add("/contact", ContactPage)
-    .setDefault(HomePage);
+const routes = {
+    "/about": AboutPage,
+    "/contact": ContactPage,
+    "default": HomePage
+};
+
+RebelRouter.create("main", routes);
 ```
 
 The above code will first of all import the router from within node modules for use in our application. It will then import the three pages we have just created.
 
-After this we create a new instance of the router and give it a unique name in this case `main-router`. Not that the name must be a valid element (i.e. contain a hyphen).
+After this we create a new router instance and give it a unique name in this case `main`.
 
-With the new instance of the router we use the `.add()` method to configure a URL route and provide the router with out page classes. We use the `.setDefault()` method and provide the HomePage class to be the fallback route.
+As a second parameter to the create method on RebelRouter we provide an object containing all the routes and associated classes.
 
 All we need to do to finish this application is add some markup to our `index.html` page.
 
@@ -165,7 +167,7 @@ In our simple app we need some way so the user can navigate to the three pages w
         <a href="#/">Home</a> | <a href="#/about">About</a> | <a href="#/contact">Contact</a>
     </nav>
     <main>
-        <rebel-router name="main-router"></rebel-router>
+        <rebel-router instance="main"></rebel-router>
     </main>
 </body>
 </html>
