@@ -112,6 +112,8 @@ export class HomePage extends HTMLElement {
         this.innerHTML = `<p>This is the home page.</p>`;
     }
 }
+
+document.registerElement("home-page", HomePage);
 ```
 
 Notice the `export` keyword, this will allow us to use the ES2015 module feature and import this class when we want to use it with the router.
@@ -122,7 +124,7 @@ Repeat this process for `about.js` and `contact.js` changing the class names app
 
 Now we have three pages (or views) we can set-up the router to display these pages depending on what URL the user goes to.
 
-Within the `index.js` file add the following code.
+Within the `index.js` file add the following code to import all the required modules and initiate the registerElement functions.
 
 ```javascript
 //The router
@@ -131,27 +133,13 @@ import {RebelRouter} from '../node_modules/rebel-router/src/rebel-router.js';
 import {HomePage} from './pages/home.js';
 import {AboutPage} from './pages/about.js';
 import {ContactPage} from './pages/contact.js';
-
-const routes = {
-    "/about": AboutPage,
-    "/contact": ContactPage,
-    "default": HomePage
-};
-
-RebelRouter.create("main", routes);
 ```
 
 The above code will first of all import the router from within node modules for use in our application. It will then import the three pages we have just created.
 
-After this we create a new router instance and give it a unique name in this case `main`.
-
-As a second parameter to the create method on RebelRouter we provide an object containing all the routes and associated classes.
-
-All we need to do to finish this application is add some markup to our `index.html` page.
-
 ## 5. Writing the HTML
 
-In our simple app we need some way so the user can navigate to the three pages we have just created. We also need to tell the rebel-router where to render the instance we have just created and configure. To do all this add the following code to `index.html`.
+In our simple app we need some way so the user can navigate to the three pages we have just created. We also need to add the router and configure it accordingly. Add the following code to `index.hml`.
 
 ```html
 <!DOCTYPE html>
@@ -167,11 +155,17 @@ In our simple app we need some way so the user can navigate to the three pages w
         <a href="#/">Home</a> | <a href="#/about">About</a> | <a href="#/contact">Contact</a>
     </nav>
     <main>
-        <rebel-router instance="main"></rebel-router>
+        <rebel-router animation="false" shadow="false">
+            <route path="/about" component="about-page"></route>
+            <route path="/contact" component="contact-page"></route>
+            <default component="home-page"></default>
+        </rebel-router>
     </main>
 </body>
 </html>
 ```
+
+In the above HTML we added the router and specified that we would like animation turned off along with no shadow DOM use. We then configure a route for the about and contact pages and finally added a default route pointing to our home page.
 
 Notice that we included the [webcomponentsjs](https://github.com/webcomponents/webcomponentsjs) pollyfills to support older browsers and also a `bundle.js` file which we haven't created yet.
 

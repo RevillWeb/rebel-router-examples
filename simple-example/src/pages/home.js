@@ -3,3 +3,5 @@ export class HomePage extends HTMLElement {
         this.innerHTML = `<p>This is the home page.</p>`;
     }
 }
+
+document.registerElement("home-page", HomePage);

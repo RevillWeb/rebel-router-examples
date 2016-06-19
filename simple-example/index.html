@@ -11,7 +11,11 @@
         <a href="#/">Home</a> | <a href="#/about">About</a> | <a href="#/contact">Contact</a>
     </nav>
     <main>
-        <rebel-router instance="main"></rebel-router>
+        <rebel-router animation="false" shadow="false">
+            <route path="/about" component="about-page"></route>
+            <route path="/contact" component="contact-page"></route>
+            <default component="home-page"></default>
+        </rebel-router>
     </main>
 </body>
 </html>
