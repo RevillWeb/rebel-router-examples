@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>rebel-router simple example</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/0.7.22/webcomponents.min.js"></script>
+    <script src="dist/bundle.js"></script>
+</head>
+<body>
+    <main>
+        <section>
+            <h1>Users example with Components</h1>
+            <rebel-router animation="false" shadow="false">
+                <route path="/user/{id}" component="user-page"></route>
+                <default component="users-page"></default>
+            </rebel-router>
+        </section>
+        <section>
+            <h1>Colours example with templates</h1>
+            <rebel-router animation="false" shadow="false">
+                <route path="/colour/{name}">
+                    The colour that was selected is: '${name}'.
+                </route>
+                <default>
+                    <ul>
+                        <li><a href="#/colour/blue">Blue</a></li>
+                        <li><a href="#/colour/green">Green</a></li>
+                        <li><a href="#/colour/orange">Orange</a></li>
+                        <li><a href="#/colour/purple">Purple</a></li>
+                        <li><a href="#/colour/gold">Gold</a></li>
+                    </ul>
+                </default>
+            </rebel-router>
+        </section>
+    </main>
+</body>
+</html>
