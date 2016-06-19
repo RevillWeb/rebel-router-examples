@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>rebel-router simple example</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/0.7.22/webcomponents.min.js"></script>
+    <script src="dist/bundle.js"></script>
+</head>
+<body>
+    <main>
+        <section>
+            <h1>Users example with Components</h1>
+            <rebel-router animation="false" shadow="false">
+                <route path="/user/{id}/{name}" component="user-page"></route>
+                <default component="users-page"></default>
+            </rebel-router>
+        </section>
+    </main>
+</body>
+</html>

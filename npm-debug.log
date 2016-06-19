@@ -1,0 +1,81 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/home/leon/Applications/Node/5.0.0/bin/node',
+1 verbose cli   '/usr/bin/npm',
+1 verbose cli   'install',
+1 verbose cli   'rebel-router@0.6.2' ]
+2 info using npm@1.4.28
+3 info using node@v5.0.0
+4 warn package.json rebel-router-examples@1.0.0 No repository field.
+5 verbose readDependencies using package.json deps
+6 verbose cache add [ 'rebel-router@0.6.2', null ]
+7 verbose cache add name=undefined spec="rebel-router@0.6.2" args=["rebel-router@0.6.2",null]
+8 verbose parsed url Url {
+8 verbose parsed url   protocol: null,
+8 verbose parsed url   slashes: null,
+8 verbose parsed url   auth: null,
+8 verbose parsed url   host: null,
+8 verbose parsed url   port: null,
+8 verbose parsed url   hostname: null,
+8 verbose parsed url   hash: null,
+8 verbose parsed url   search: null,
+8 verbose parsed url   query: null,
+8 verbose parsed url   pathname: 'rebel-router@0.6.2',
+8 verbose parsed url   path: 'rebel-router@0.6.2',
+8 verbose parsed url   href: 'rebel-router@0.6.2' }
+9 verbose cache add name="rebel-router" spec="0.6.2" args=["rebel-router","0.6.2"]
+10 verbose parsed url Url {
+10 verbose parsed url   protocol: null,
+10 verbose parsed url   slashes: null,
+10 verbose parsed url   auth: null,
+10 verbose parsed url   host: null,
+10 verbose parsed url   port: null,
+10 verbose parsed url   hostname: null,
+10 verbose parsed url   hash: null,
+10 verbose parsed url   search: null,
+10 verbose parsed url   query: null,
+10 verbose parsed url   pathname: '0.6.2',
+10 verbose parsed url   path: '0.6.2',
+10 verbose parsed url   href: '0.6.2' }
+11 verbose addNamed [ 'rebel-router', '0.6.2' ]
+12 verbose addNamed [ '0.6.2', '0.6.2' ]
+13 silly lockFile 63e4c323-rebel-router-0-6-2 rebel-router@0.6.2
+14 verbose lock rebel-router@0.6.2 /home/leon/.npm/63e4c323-rebel-router-0-6-2.lock
+15 verbose request where is /rebel-router
+16 verbose request registry https://registry.npmjs.org/
+17 verbose request id 0ef05734ddb1b7cb
+18 verbose url raw /rebel-router
+19 verbose url resolving [ 'https://registry.npmjs.org/', './rebel-router' ]
+20 verbose url resolved https://registry.npmjs.org/rebel-router
+21 verbose request where is https://registry.npmjs.org/rebel-router
+22 info trying registry request attempt 1 at 4:14:12 PM
+23 verbose etag "7XFVFV4WRO4AO714J2MKZ5QL4"
+24 http GET https://registry.npmjs.org/rebel-router
+25 http 304 https://registry.npmjs.org/rebel-router
+26 silly registry.get cb [ 304,
+26 silly registry.get   { date: 'Sun, 19 Jun 2016 15:14:13 GMT',
+26 silly registry.get     via: '1.1 varnish',
+26 silly registry.get     'cache-control': 'max-age=300',
+26 silly registry.get     etag: '"7XFVFV4WRO4AO714J2MKZ5QL4"',
+26 silly registry.get     age: '0',
+26 silly registry.get     connection: 'close',
+26 silly registry.get     'x-served-by': 'cache-lhr6332-LHR',
+26 silly registry.get     'x-cache': 'MISS',
+26 silly registry.get     'x-cache-hits': '0',
+26 silly registry.get     'x-timer': 'S1466349253.108610,VS0,VE705',
+26 silly registry.get     vary: 'Accept-Encoding' } ]
+27 verbose etag https://registry.npmjs.org/rebel-router from cache
+28 silly lockFile 63e4c323-rebel-router-0-6-2 rebel-router@0.6.2
+29 silly lockFile 63e4c323-rebel-router-0-6-2 rebel-router@0.6.2
+30 error Error: version not found: rebel-router@0.6.2
+30 error     at /usr/lib/node_modules/npm/lib/cache/add-named.js:125:12
+30 error     at saved (/usr/lib/node_modules/npm/node_modules/npm-registry-client/lib/get.js:167:7)
+30 error     at FSReqWrap.oncomplete (fs.js:82:15)
+31 error If you need help, you may report this *entire* log,
+31 error including the npm and node versions, at:
+31 error     <http://github.com/npm/npm/issues>
+32 error System Linux 4.2.0-37-generic
+33 error command "/home/leon/Applications/Node/5.0.0/bin/node" "/usr/bin/npm" "install" "rebel-router@0.6.2"
+34 error cwd /home/leon/Code/rebel-router-examples
+35 error node -v v5.0.0
+36 error npm -v 1.4.28
+37 verbose exit [ 1, true ]

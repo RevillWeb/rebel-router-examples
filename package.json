@@ -12,6 +12,6 @@
     "webpack": "^1.13.1"
   },
   "dependencies": {
-    "rebel-router": "^0.6.1"
+    "rebel-router": "^0.6.2"
   }
 }
