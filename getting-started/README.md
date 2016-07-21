@@ -1,6 +1,6 @@
-<div align="center"><img src="http://i.imgur.com/8CPaGEG.png"></div>
-
 # Getting started with rebel-router
+
+<div align="center"><img src="http://i.imgur.com/8CPaGEG.png"></div>
 
 This short tutorial will show you how easy it is to get up and running with the rebel-router. You will create the worlds simplest web app with three pages.
 
