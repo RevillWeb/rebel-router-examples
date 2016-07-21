@@ -92,28 +92,61 @@
 
 	    _createClass(RebelRouter, [{
 	        key: "createdCallback",
-	        value: function createdCallback() {
+
+
+	        /**
+	         * Main initialisation point of rebel-router
+	         * @param prefix - If extending rebel-router you can specify a prefix when calling createdCallback in case your elements need to be named differently
+	         */
+	        value: function createdCallback(prefix) {
 	            var _this2 = this;
 
+	            var _prefix = prefix || "rebel";
+
 	            this.previousPath = null;
+	            this.basePath = null;
 
 	            //Get options
 	            this.options = {
 	                "animation": this.getAttribute("animation") == "true",
-	                "shadowRoot": this.getAttribute("shadow") == "true"
+	                "shadowRoot": this.getAttribute("shadow") == "true",
+	                "inherit": this.getAttribute("inherit") != "false"
 	            };
 
 	            //Get routes
+	            if (this.options.inherit === true) {
+	                //If this is a nested router then we need to go and get the parent path
+	                var $element = this;
+	                while ($element.parentNode) {
+	                    $element = $element.parentNode;
+	                    if ($element.nodeName.toLowerCase() == _prefix + "-router") {
+	                        var current = $element.current();
+	                        this.basePath = current.route;
+	                        break;
+	                    }
+	                }
+	            }
 	            this.routes = {};
 	            var $children = this.children;
 	            for (var i = 0; i < $children.length; i++) {
 	                var $child = $children[i];
-	                var path = $child.nodeName.toLowerCase() == "default" ? "*" : $child.getAttribute("path");
-	                var component = $child.getAttribute("component");
+	                var path = $child.getAttribute("path");
+	                switch ($child.nodeName.toLowerCase()) {
+	                    case _prefix + "-default":
+	                        path = "*";
+	                        break;
+	                    case _prefix + "-route":
+	                        path = this.basePath !== null ? this.basePath + path : path;
+	                        break;
+	                }
 	                if (path !== null) {
+	                    var $template = null;
+	                    if ($child.innerHTML) {
+	                        $template = "<" + _prefix + "-route>" + $child.innerHTML + "</" + _prefix + "-route>";
+	                    }
 	                    this.routes[path] = {
 	                        "component": $child.getAttribute("component"),
-	                        "template": $child.innerHTML || null
+	                        "template": $template
 	                    };
 	                }
 	            }
@@ -243,7 +276,7 @@
 	                                return typeof r === 'string' || typeof r === 'number' ? r : a;
 	                            });
 	                        }
-	                        this.root.innerHTML = "<div>" + $template + "</div>";
+	                        this.root.innerHTML = $template;
 	                    }
 	                    this.previousPath = result.path;
 	                }
@@ -448,6 +481,42 @@
 	document.registerElement("rebel-router", RebelRouter);
 
 	/**
+	 * Class which represents the rebel-route custom element
+	 */
+
+	var RebelRoute = exports.RebelRoute = function (_HTMLElement2) {
+	    _inherits(RebelRoute, _HTMLElement2);
+
+	    function RebelRoute() {
+	        _classCallCheck(this, RebelRoute);
+
+	        return _possibleConstructorReturn(this, Object.getPrototypeOf(RebelRoute).apply(this, arguments));
+	    }
+
+	    return RebelRoute;
+	}(HTMLElement);
+
+	document.registerElement("rebel-route", RebelRoute);
+
+	/**
+	 * Class which represents the rebel-default custom element
+	 */
+
+	var RebelDefault = function (_HTMLElement3) {
+	    _inherits(RebelDefault, _HTMLElement3);
+
+	    function RebelDefault() {
+	        _classCallCheck(this, RebelDefault);
+
+	        return _possibleConstructorReturn(this, Object.getPrototypeOf(RebelDefault).apply(this, arguments));
+	    }
+
+	    return RebelDefault;
+	}(HTMLElement);
+
+	document.registerElement("rebel-default", RebelDefault);
+
+	/**
 	 * Represents the prototype for an anchor element which added functionality to perform a back transition.
 	 */
 
@@ -463,10 +532,10 @@
 	    _createClass(RebelBackA, [{
 	        key: "attachedCallback",
 	        value: function attachedCallback() {
-	            var _this5 = this;
+	            var _this7 = this;
 
 	            this.addEventListener("click", function (event) {
-	                var path = _this5.getAttribute("href");
+	                var path = _this7.getAttribute("href");
 	                event.preventDefault();
 	                if (path !== undefined) {
 	                    window.dispatchEvent(new CustomEvent('rblback'));
@@ -499,8 +568,11 @@
 	 */
 	function _routeResult(obj, route, regex, path) {
 	    var result = {};
-	    result.component = obj.component;
-	    result.template = obj.template;
+	    for (var key in obj) {
+	        if (obj.hasOwnProperty(key)) {
+	            result[key] = obj[key];
+	        }
+	    }
 	    result.route = route;
 	    result.path = path;
 	    result.params = RebelRouter.getParamsFromUrl(regex, route, path);

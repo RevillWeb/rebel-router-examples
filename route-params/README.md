@@ -1,3 +1,5 @@
+<div align="center"><img src="http://i.imgur.com/8CPaGEG.png"></div>
+
 # Accessing route parameters with rebel-router
 
 **Note:** If you haven't already checked out the getting started tutorial then please do as this will show you how to get set-up with **rebel-router**.
@@ -20,10 +22,10 @@ It is equally as easy to get hold of the route parameters if you are using templ
 
 ```html
 <rebel-router animation="false" shadow="false">
-    <route path="/colour/{name}">
+    <rebel-route path="/colour/{name}">
         The colour that was selected is: '${name}'.
-    </route>
-    <default>
+    </rebel-route>
+    <rebel-default>
         <ul>
             <li><a href="#/colour/blue">Blue</a></li>
             <li><a href="#/colour/green">Green</a></li>
@@ -31,6 +33,6 @@ It is equally as easy to get hold of the route parameters if you are using templ
             <li><a href="#/colour/purple">Purple</a></li>
             <li><a href="#/colour/gold">Gold</a></li>
         </ul>
-    </default>
+    </rebel-default>
 </rebel-router>
 ```

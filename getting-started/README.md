@@ -1,3 +1,5 @@
+<div align="center"><img src="http://i.imgur.com/8CPaGEG.png"></div>
+
 # Getting started with rebel-router
 
 This short tutorial will show you how easy it is to get up and running with the rebel-router. You will create the worlds simplest web app with three pages.
@@ -156,9 +158,9 @@ In our simple app we need some way so the user can navigate to the three pages w
     </nav>
     <main>
         <rebel-router animation="false" shadow="false">
-            <route path="/about" component="about-page"></route>
-            <route path="/contact" component="contact-page"></route>
-            <default component="home-page"></default>
+            <rebel-route path="/about" component="about-page"></rebel-route>
+            <rebel-route path="/contact" component="contact-page"></rebel-route>
+            <rebel-default component="home-page"></rebel-default>
         </rebel-router>
     </main>
 </body>

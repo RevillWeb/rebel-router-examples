@@ -11,17 +11,17 @@
         <section>
             <h1>Users example with Components</h1>
             <rebel-router animation="false" shadow="false">
-                <route path="/user/{id}" component="user-page"></route>
-                <default component="users-page"></default>
+                <rebel-route path="/user/{id}" component="user-page"></rebel-route>
+                <rebel-default component="users-page"></rebel-default>
             </rebel-router>
         </section>
         <section>
             <h1>Colours example with templates</h1>
             <rebel-router animation="false" shadow="false">
-                <route path="/colour/{name}">
+                <rebel-route path="/colour/{name}">
                     The colour that was selected is: '${name}'.
-                </route>
-                <default>
+                </rebel-route>
+                <rebel-default>
                     <ul>
                         <li><a href="#/colour/blue">Blue</a></li>
                         <li><a href="#/colour/green">Green</a></li>
@@ -29,7 +29,7 @@
                         <li><a href="#/colour/purple">Purple</a></li>
                         <li><a href="#/colour/gold">Gold</a></li>
                     </ul>
-                </default>
+                </rebel-default>
             </rebel-router>
         </section>
     </main>
