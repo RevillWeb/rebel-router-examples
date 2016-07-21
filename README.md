@@ -1,5 +1,7 @@
 #rebel-router examples
 
+<div align="center"><img src="http://i.imgur.com/8CPaGEG.png"></div>
+
 This repository provides a selection of examples for the [rebel-router](https://github.com/RevillWeb/rebel-router) - a lightweight JavaScript router written for ultra-modern applications where web components are first class citizens.
 
 ##Index
