@@ -8,16 +8,16 @@ export class UserPage extends HTMLElement {
                 <a href="#/user/${this.id}/${this.name}/details">Details</a> | <a href="#/user/${this.id}/${this.name}/shipping">Shipping</a> | <a href="#/user/${this.id}/${this.name}/billing">Billing</a>
             </nav>
             <rebel-router inherit="true">
-                <route path="/details">
+                <rebel-route path="/details">
                     <p>General details for ${this.name}.</p>
-                </route>
-                <route path="/shipping">
+                </rebel-route>
+                <rebel-route path="/shipping">
                     <p>Shipping details for ${this.name}.</p>
-                </route>
-                <route path="/billing">
+                </rebel-route>
+                <rebel-route path="/billing">
                     <p>Billing details for ${this.name}.</p>
-                </route>
-                <default><p>Use the nav above.</p></default>
+                </rebel-route>
+                <rebel-default><p>Use the nav above.</p></rebel-default>
             </rebel-router>
         `;
     }

@@ -92,8 +92,16 @@
 
 	    _createClass(RebelRouter, [{
 	        key: "createdCallback",
-	        value: function createdCallback() {
+
+
+	        /**
+	         * Main initialisation point of rebel-router
+	         * @param prefix - If extending rebel-router you can specify a prefix when calling createdCallback in case your elements need to be named differently
+	         */
+	        value: function createdCallback(prefix) {
 	            var _this2 = this;
+
+	            var _prefix = prefix || "rebel";
 
 	            this.previousPath = null;
 	            this.basePath = null;
@@ -102,7 +110,7 @@
 	            this.options = {
 	                "animation": this.getAttribute("animation") == "true",
 	                "shadowRoot": this.getAttribute("shadow") == "true",
-	                "inherit": this.getAttribute("inherit") == "true"
+	                "inherit": this.getAttribute("inherit") != "false"
 	            };
 
 	            //Get routes
@@ -111,7 +119,7 @@
 	                var $element = this;
 	                while ($element.parentNode) {
 	                    $element = $element.parentNode;
-	                    if ($element.nodeName.toLowerCase() == "rebel-router") {
+	                    if ($element.nodeName.toLowerCase() == _prefix + "-router") {
 	                        var current = $element.current();
 	                        this.basePath = current.route;
 	                        break;
@@ -124,17 +132,21 @@
 	                var $child = $children[i];
 	                var path = $child.getAttribute("path");
 	                switch ($child.nodeName.toLowerCase()) {
-	                    case "default":
+	                    case _prefix + "-default":
 	                        path = "*";
 	                        break;
-	                    case "route":
+	                    case _prefix + "-route":
 	                        path = this.basePath !== null ? this.basePath + path : path;
 	                        break;
 	                }
 	                if (path !== null) {
+	                    var $template = null;
+	                    if ($child.innerHTML) {
+	                        $template = "<" + _prefix + "-route>" + $child.innerHTML + "</" + _prefix + "-route>";
+	                    }
 	                    this.routes[path] = {
 	                        "component": $child.getAttribute("component"),
-	                        "template": $child.innerHTML || null
+	                        "template": $template
 	                    };
 	                }
 	            }
@@ -264,7 +276,7 @@
 	                                return typeof r === 'string' || typeof r === 'number' ? r : a;
 	                            });
 	                        }
-	                        this.root.innerHTML = "<div>" + $template + "</div>";
+	                        this.root.innerHTML = $template;
 	                    }
 	                    this.previousPath = result.path;
 	                }
@@ -469,6 +481,42 @@
 	document.registerElement("rebel-router", RebelRouter);
 
 	/**
+	 * Class which represents the rebel-route custom element
+	 */
+
+	var RebelRoute = exports.RebelRoute = function (_HTMLElement2) {
+	    _inherits(RebelRoute, _HTMLElement2);
+
+	    function RebelRoute() {
+	        _classCallCheck(this, RebelRoute);
+
+	        return _possibleConstructorReturn(this, Object.getPrototypeOf(RebelRoute).apply(this, arguments));
+	    }
+
+	    return RebelRoute;
+	}(HTMLElement);
+
+	document.registerElement("rebel-route", RebelRoute);
+
+	/**
+	 * Class which represents the rebel-default custom element
+	 */
+
+	var RebelDefault = function (_HTMLElement3) {
+	    _inherits(RebelDefault, _HTMLElement3);
+
+	    function RebelDefault() {
+	        _classCallCheck(this, RebelDefault);
+
+	        return _possibleConstructorReturn(this, Object.getPrototypeOf(RebelDefault).apply(this, arguments));
+	    }
+
+	    return RebelDefault;
+	}(HTMLElement);
+
+	document.registerElement("rebel-default", RebelDefault);
+
+	/**
 	 * Represents the prototype for an anchor element which added functionality to perform a back transition.
 	 */
 
@@ -484,10 +532,10 @@
 	    _createClass(RebelBackA, [{
 	        key: "attachedCallback",
 	        value: function attachedCallback() {
-	            var _this5 = this;
+	            var _this7 = this;
 
 	            this.addEventListener("click", function (event) {
-	                var path = _this5.getAttribute("href");
+	                var path = _this7.getAttribute("href");
 	                event.preventDefault();
 	                if (path !== undefined) {
 	                    window.dispatchEvent(new CustomEvent('rblback'));
@@ -520,8 +568,11 @@
 	 */
 	function _routeResult(obj, route, regex, path) {
 	    var result = {};
-	    result.component = obj.component;
-	    result.template = obj.template;
+	    for (var key in obj) {
+	        if (obj.hasOwnProperty(key)) {
+	            result[key] = obj[key];
+	        }
+	    }
 	    result.route = route;
 	    result.path = path;
 	    result.params = RebelRouter.getParamsFromUrl(regex, route, path);
@@ -599,7 +650,7 @@
 	        value: function attachedCallback() {
 	            this.id = this.getAttribute("id");
 	            this.name = this.getAttribute("name");
-	            this.innerHTML = "\n            <p>User '" + this.name + "' with ID '" + this.id + "' was selected.</p>\n            <nav>\n                <a href=\"#/user/" + this.id + "/" + this.name + "/details\">Details</a> | <a href=\"#/user/" + this.id + "/" + this.name + "/shipping\">Shipping</a> | <a href=\"#/user/" + this.id + "/" + this.name + "/billing\">Billing</a>\n            </nav>\n            <rebel-router inherit=\"true\">\n                <route path=\"/details\">\n                    <p>General details for " + this.name + ".</p>\n                </route>\n                <route path=\"/shipping\">\n                    <p>Shipping details for " + this.name + ".</p>\n                </route>\n                <route path=\"/billing\">\n                    <p>Billing details for " + this.name + ".</p>\n                </route>\n                <default><p>Use the nav above.</p></default>\n            </rebel-router>\n        ";
+	            this.innerHTML = "\n            <p>User '" + this.name + "' with ID '" + this.id + "' was selected.</p>\n            <nav>\n                <a href=\"#/user/" + this.id + "/" + this.name + "/details\">Details</a> | <a href=\"#/user/" + this.id + "/" + this.name + "/shipping\">Shipping</a> | <a href=\"#/user/" + this.id + "/" + this.name + "/billing\">Billing</a>\n            </nav>\n            <rebel-router inherit=\"true\">\n                <rebel-route path=\"/details\">\n                    <p>General details for " + this.name + ".</p>\n                </rebel-route>\n                <rebel-route path=\"/shipping\">\n                    <p>Shipping details for " + this.name + ".</p>\n                </rebel-route>\n                <rebel-route path=\"/billing\">\n                    <p>Billing details for " + this.name + ".</p>\n                </rebel-route>\n                <rebel-default><p>Use the nav above.</p></rebel-default>\n            </rebel-router>\n        ";
 	        }
 	    }]);
 
